@@ -1100,7 +1100,7 @@ function RayfieldLibrary:Notify(data) -- action e.g open messages
 		TweenService:Create(newNotification.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {Transparency = 0.95}):Play()
 		TweenService:Create(newNotification.Shadow, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {ImageTransparency = 0.82}):Play()
 
-		local waitDuration = math.min(math.max((#newNotification.Description.Text * 0.1) + 2.5, 3), 6)
+		local waitDuration = math.min(math.max((#newNotification.Description.Text * 0.1) + 2.5, 3), 10)
 		task.wait(data.Duration or waitDuration)
 
 		newNotification.Icon.Visible = false
@@ -1592,7 +1592,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 	if not correctBuild and not Settings.DisableBuildWarnings then
 		task.delay(3, 
 			function() 
-				RayfieldLibrary:Notify({Title = 'Build Mismatch', Content = 'Rayfield may encounter issues as you are running an incompatible interface version ('.. ((Rayfield:FindFirstChild('Build') and Rayfield.Build.Value) or 'No Build') ..').\n\nThis version of Rayfield is intended for interface build '..InterfaceBuild..'.\n\nTry rejoining and then run the script twice.', Image = 4335487866, Duration = 1})		
+				RayfieldLibrary:Notify({Title = 'Build Mismatch', Content = 'Rayfield may encounter issues as you are running an incompatible interface version ('.. ((Rayfield:FindFirstChild('Build') and Rayfield.Build.Value) or 'No Build') ..').\n\nThis version of Rayfield is intended for interface build '..InterfaceBuild..'.\n\nTry rejoining and then run the script twice.', Image = 4335487866, Duration = 2})		
 			end)
 	end
 
@@ -1692,7 +1692,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 				RayfieldLibrary:Notify({
 					Title = "Rayfield Interface",
 					Content = "Enjoying this UI library? Find it at sirius.menu/discord",
-					Duration = 1,
+					Duration = 2,
 					Image = 4370033185,
 				})
 			end
@@ -3759,6 +3759,7 @@ function RayfieldLibrary:LoadConfiguration()
 		if success and loaded and not notified then
 			RayfieldLibrary:Notify({Title = "Rayfield Configurations", Content = "The configuration file for this script has been loaded from a previous session.", Image = 4384403532})
 		elseif not success and not notified then
+			warn('Rayfield Configurations Error | '..tostring(result))
 			RayfieldLibrary:Notify({Title = "Rayfield Configurations", Content = "We've encountered an issue loading your configuration correctly.\n\nCheck the Developer Console for more information.", Image = 4384402990})
 		end
 	end
